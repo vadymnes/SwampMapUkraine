@@ -1,0 +1,339 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Geologica", sans-serif;
+  }
+  #map {
+    height: 100vh;
+  }
+  .intro {
+    height: 448px;
+    width: 100%;
+    
+    background-color: #d8dae0;
+  }
+  .scroll-container {
+    overflow-y: auto; /* Встановлюємо вертикальну прокрутку */
+    height: 100vh; /* Задаємо висоту контейнера */
+  }
+  .content {
+    /* Задаємо стилі для вашого вмісту */
+    display: flex;
+    flex-direction: column;
+  }
+  .zagolovok {
+    font-size: 20px;
+    position: center;
+    padding-bottom: 30px;
+  }
+  #map_old {
+    position: absolute;
+    top: 0;
+    bottom: 0%;
+    width: 100%;
+  }
+  
+  .list-container {
+    position: absolute; /* щоб розмістити поверх мапи */
+    bottom: 0; /* розташування карток в нижній частині */
+    left: 50%; /* по центру */
+    transform: translateX(-50%); /* Зсув на половину власної ширини назад  (?) */
+    width: 80%;
+    max-width: 1000px;
+    display: none;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 20px;
+  }
+  
+  
+  
+  .objectbox {
+    width: calc(18% - 30px); /* Розрахунок ширини картки з відступами */
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .objectbox:hover {
+    width: calc(25% - 40px); /* Розрахунок ширини картки з відступами */
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .objectbox img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .objectbox-name {
+    background-color: #c5c5c5;
+    color: #3f3f3f;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    height: 40px;
+  }
+  
+  .objectbox-name:hover {
+    background-color: white;
+    cursor: pointer;
+    color: #3f3f3f;
+    font-size: 14px;
+  }
+  
+  .card-photo {
+    width: 100%;
+    height:50%;
+  }
+  
+  .mainpopup_old {
+    z-index: 12;
+    position: absolute;
+    margin-top: 15%;
+    padding: 10% 0% 10% 0%;
+    background-color: aliceblue;
+    justify-content: center;
+    align-items: center;
+  }
+  .text-intro {
+    text-align: center;
+    padding: 40px;
+    font-size: 20px;
+    font-family: "Geologica", sans-serif;
+    font-weight: 700;
+  }
+  
+  .img {
+    width: 100%;
+    height: 100%;
+  }
+  .center-shadow{
+    position: absolute;
+    z-index:1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px 20px;
+    background-color: rgba(216,218,224, 0.5); /* Півпрозорий фон на початку переходу на карту */
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  .start-button {
+    background-color: #c0392b; /* Іржавий колір кнопки */
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    max-width: max-content;
+    color: #ffffff; /* Колір тексту на кнопці */
+    padding: 10px 20px; /* Відступи внутрішнього простору кнопки */
+    margin-top: 10px;
+    border-radius: 8px; /* Заокруглені кути */
+    cursor: pointer; /* Зміна вигляду курсору при наведенні */
+    transition: background-color 0.3s; /* Анімація при зміні фонового кольору */
+  }
+  
+  .start-button:hover {
+    background-color: #922b21; /* Темніший іржавий колір при наведенні */
+  }
+  
+  #bigname-below {
+    position: absolute;
+    display: none;
+    bottom: 0;
+    left: 50%;
+    width: 100%;
+    height: 20%;
+    transform: translateX(-50%);
+    z-index: 1;
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.3925945378151261) 73%,
+      rgb(81 81 81 / 6%) 100%
+    );
+    font-size: 46px;
+  }
+  #text-below {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 750px;
+    transform: translateX(-50%);
+    font-family: "Geologica", sans-serif;
+    font-weight: 700;
+    color: rgb(204, 204, 204);
+    z-index: 1;
+    font-size: 60px;
+  }
+  
+  #next-object-button {
+    position: absolute;
+    top: 40%;
+    left: 90%;
+    padding: 10px;
+    background-color: white;
+    height: 45px;
+    color: rgb(204, 204, 204);
+    z-index: 1;
+    border-radius: 100px;
+    cursor: pointer;
+  }
+  #next-object-button:hover {
+    background-color: #f8f4ec;
+  }
+  
+  .list-item {
+    cursor: pointer;
+    padding: 15px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: #1f1f1f;
+    width: 90%;
+  }
+  .list-item:hover {
+    background-color: #302f2f;
+  }
+  
+  /* детальна картка - обводка  */
+  #card-container {
+    position: fixed;
+    top: 60px;
+    right: 80px;
+    background-color: #d8dae0; /* Темний фон (стиль National Geographic) */
+    color: #ffffff; /* Колір тексту (білий) */
+    display: none;
+    z-index: 2;
+    width: 32vw;
+    max-width: 500px;
+    font-family: "Geologica", sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.5;
+    border-radius: 10px; /* Заокруглені кути */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Тінь */
+  }
+  /* Стилі для кнопки close */
+  .close-button {
+    position: absolute; /* Абсолютне позиціонування */
+    background-color: #d8dae0;
+    background-opacity: 0.5;
+    top: 0px;
+    right: 0px;
+    color: white; /* Колір тексту на кнопці */
+    padding: 3px 3px; /* Відступи внутрішнього простору кнопки */
+    border: none; /* Видалення рамки */
+    cursor: pointer; /* Зміна вигляду курсору при наведенні */
+  }
+  
+  .close-button:hover {
+    background-color: #9b9c9f; /* Колір фону кнопки при наведенні */
+  }
+  
+  /* Стилі для кнопки переходу до опису */
+  .description-button {
+    position: absolute; /* Абсолютне позиціонування */
+    background-color: #d8dae0;
+    background-opacity: 0.5;
+    top: 0px;
+    right: 40px;
+    color: white; /* Колір тексту на кнопці */
+    padding: 3px 3px; /* Відступи внутрішнього простору кнопки */
+    border: none; /* Видалення рамки */
+    cursor: pointer; /* Зміна вигляду курсору при наведенні */
+  }
+  
+  .description-button:hover {
+    background-color: #9b9c9f; /* Колір фону кнопки при наведенні */
+  }
+  
+  #card-description {
+    padding: 0px 10px;
+    color: black;
+  }
+  
+  .info-block{
+    padding: 10px;
+    background-color: purple;
+    border-radius: 5px;
+  }
+  
+  /* Контейнер для круглих зображень */
+  .round-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* Кружечок в картці детальній */
+  .circle {
+    width: 60px; /* Збільшуємо ширину в 2 рази */
+    height: 60px; /* Збільшуємо висоту в 2 рази */
+    background-color: transparent; /* Змінюємо фон на прозорий, оскільки будемо використовувати зображення */
+    border-radius: 50%;
+    margin: 10px;
+  }
+  
+  /* Заповнюємо кружечок зображенням */
+  .circle img {
+    width: 100%; 
+    height: 100%;
+    border-radius: 50%;
+  }
+  
+  
+  .accordion {
+      max-width: 400px;
+      margin: 5px auto;
+  }
+  .accordion-item {
+      border: 1px solid #ccc;
+      margin-bottom: 5px;
+  }
+  .accordion-item-header {
+      background-color: #f4f4f4;
+    color: black;
+      padding: 10px;
+      cursor: pointer;
+  }
+  .accordion-item-body {
+      height: 0;
+    color: black;
+      overflow: hidden;
+      transition: height 0.3s ease;
+      padding: 0;
+      p{
+          margin: 0;
+          padding: 8px 16px;
+      }
+  }
+  .accordion-item-body.collapsed {
+      height: 0;
+  }
+  
+  .info-item-accordion-settl{
+    padding: 5px;
+  }
+  
+  .links-container {
+      display: flex;
+      flex-direction: column;
+  }
+  
+  .dark-link {
+      background-color: #bfc1c7;
+      color: black;
+      text-decoration: none;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+  }
+  
+  .dark-link:hover {
+      background-color: #98999e;
+  }
