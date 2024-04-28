@@ -122,7 +122,6 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
             objectbox.addEventListener("click", function () {
                 // Починає відображатися картка об'єкта - OK
                 cardContainer.style.display = "block";
-                // Отримати посилання на зображення з feature.properties.image
 
                 // Отримуємо посилання на елемент card-description
                 const cardDescription = document.getElementById("card-description");
@@ -136,9 +135,42 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 const infosettl = feature.properties.nearest_settl;
                 infoSettl.textContent = infosettl;
 
+                // Зображення в картці
                 const imageUrl = feature.properties.image;
-                // Змінити src для зображення
                 document.getElementById("card-photo").src = imageUrl;
+
+                // Посилання в картці
+                const linksContainer = document.querySelector('.links-container');
+                const links = feature.properties.links;
+                linksContainer.innerHTML = '';
+                links.forEach(link => {
+                    const linkElement = document.createElement('a');
+                    linkElement.href = link.url; 
+                    linkElement.textContent = link.name;
+                    linkElement.classList.add('dark-link');
+
+                    // Створення іконки
+                    const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    iconSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+                    iconSvg.setAttribute('class', 'icon icon-tabler icon-tabler-external-link');
+                    iconSvg.setAttribute('width', '24');
+                    iconSvg.setAttribute('height', '24');
+                    iconSvg.setAttribute('viewBox', '0 0 24 24');
+                    iconSvg.setAttribute('stroke-width', '1.5');
+                    iconSvg.setAttribute('stroke', '#2c3e50');
+                    iconSvg.setAttribute('fill', 'none');
+                    iconSvg.setAttribute('stroke-linecap', 'round');
+                    iconSvg.setAttribute('stroke-linejoin', 'round');
+                    iconSvg.innerHTML = `
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" />
+                        <path d="M11 13l9 -9" />
+                        <path d="M15 4h5v5" />
+                    `;
+                    linkElement.appendChild(iconSvg);
+                    
+                    linksContainer.appendChild(linkElement);
+                });
 
                 // Відображення назви об'єкту внизу сторінки + приховується нижній список об'єктів - OK
                 bigNameBelow.innerHTML = name;
@@ -227,10 +259,43 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 // Змінити src для зображення
                 document.getElementById("card-photo").src = imageUrl;
 
-                // Акордеон №2 - найближчі населені пункти до об'єкту
+                // Акордеон №2 - Найближчі населені пункти до об'єкту
                 const infoSettl = document.getElementById("info-item-accordion-settl");
                 const infosettl = e.features[0].properties.nearest_settl;
                 infoSettl.textContent = infosettl;
+
+                // Акордеон №3 - Посилання в картці - НЕ ОК
+                const linksContainer = document.querySelector('.links-container');
+                const links = e.features[0].properties.links;
+                linksContainer.innerHTML = '';
+                links.forEach(link => {
+                    const linkElement = document.createElement('a');
+                    linkElement.href = link.url; 
+                    linkElement.textContent = link.name;
+                    linkElement.classList.add('dark-link');
+
+                    // Створення іконки
+                    const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    iconSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+                    iconSvg.setAttribute('class', 'icon icon-tabler icon-tabler-external-link');
+                    iconSvg.setAttribute('width', '24');
+                    iconSvg.setAttribute('height', '24');
+                    iconSvg.setAttribute('viewBox', '0 0 24 24');
+                    iconSvg.setAttribute('stroke-width', '1.5');
+                    iconSvg.setAttribute('stroke', '#2c3e50');
+                    iconSvg.setAttribute('fill', 'none');
+                    iconSvg.setAttribute('stroke-linecap', 'round');
+                    iconSvg.setAttribute('stroke-linejoin', 'round');
+                    iconSvg.innerHTML = `
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" />
+                        <path d="M11 13l9 -9" />
+                        <path d="M15 4h5v5" />
+                    `;
+                    linkElement.appendChild(iconSvg);
+                    
+                    linksContainer.appendChild(linkElement);
+                });
 
                 // Підпис об'єкта внизу - OK
                 const name = e.features[0].properties.name;
