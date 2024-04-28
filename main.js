@@ -9,77 +9,58 @@ const map = new mapboxgl.Map({
     pitch: 15,
 });
 
+// pulsing dot icon on the map.
 const size = 100;
-
-    // This implements `StyleImageInterface`
-    // to draw a pulsing dot icon on the map.
-    const pulsingDot = {
-        width: size,
-        height: size,
-        data: new Uint8Array(size * size * 4),
-
-        // When the layer is added to the map,
-        // get the rendering context for the map canvas.
-        onAdd: function () {
-            const canvas = document.createElement('canvas');
-            canvas.width = this.width;
-            canvas.height = this.height;
-            this.context = canvas.getContext('2d');
-        },
-
-        // Call once before every frame where the icon will be used.
-        render: function () {
-            const duration = 2000;
-            const t = (performance.now() % duration) / duration;
-
-            const radius = (size / 2) * 0.3;
-            const outerRadius = (size / 2) * 0.7 * t + radius;
-            const context = this.context;
-
-            // Draw the outer circle.
-            context.clearRect(0, 0, this.width, this.height);
-            context.beginPath();
-            context.arc(
-                this.width / 2,
-                this.height / 2,
-                outerRadius,
-                0,
-                Math.PI * 2
-            );
-            context.fillStyle = `rgba(255, 200, 200, ${1 - t})`;
-            context.fill();
-
-            // Draw the inner circle.
-            context.beginPath();
-            context.arc(
-                this.width / 2,
-                this.height / 2,
-                radius,
-                0,
-                Math.PI * 2
-            );
-            context.fillStyle = '#DE4F12';
-            context.strokeStyle = '#DE4F12';
-            context.lineWidth = 2 + 4 * (1 - t);
-            context.fill();
-            context.stroke();
-
-            // Update this image's data with data from the canvas.
-            this.data = context.getImageData(
-                0,
-                0,
-                this.width,
-                this.height
-            ).data;
-
-            // Continuously repaint the map, resulting
-            // in the smooth animation of the dot.
-            map.triggerRepaint();
-
-            // Return `true` to let the map know that the image was updated.
-            return true;
-        }
-    };
+const pulsingDot = {
+    width: size,
+    height: size,
+    data: new Uint8Array(size * size * 4),
+    onAdd: function () {
+        const canvas = document.createElement('canvas');
+        canvas.width = this.width;
+        canvas.height = this.height;
+        this.context = canvas.getContext('2d');
+    },
+    render: function () {
+        const duration = 2000;
+        const t = (performance.now() % duration) / duration;
+        const radius = (size / 2) * 0.3;
+        const outerRadius = (size / 2) * 0.7 * t + radius;
+        const context = this.context;
+        context.clearRect(0, 0, this.width, this.height);
+        context.beginPath();
+        context.arc(
+            this.width / 2,
+            this.height / 2,
+            outerRadius,
+            0,
+            Math.PI * 2
+        );
+        context.fillStyle = `rgba(255, 200, 200, ${1 - t})`;
+        context.fill();
+        context.beginPath();
+        context.arc(
+            this.width / 2,
+            this.height / 2,
+            radius,
+            0,
+            Math.PI * 2
+        );
+        context.fillStyle = '#DE4F12';
+        context.strokeStyle = '#DE4F12';
+        context.lineWidth = 2 + 4 * (1 - t);
+        context.fill();
+        context.stroke();
+        this.data = context.getImageData(
+            0,
+            0,
+            this.width,
+            this.height
+        ).data;
+        map.triggerRepaint();
+        return true;
+    }
+};
 
 const cardContainer = document.getElementById("card-container");
 const cardTitle = document.querySelector(".card-title");
@@ -110,7 +91,7 @@ function startMap() {
 }
 
 // Робота з набором даних
-fetch("swamp_polygon.geojson")
+fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_polygon.geojson")
     .then((response) => response.json())
     .then((data) => {
         const listContainer = document.querySelector(".list-container");
@@ -118,7 +99,7 @@ fetch("swamp_polygon.geojson")
         data.features.forEach((feature, index) => {
             // Витягування назви та опису об'єкта
             const name = feature.properties.name;
-            
+
 
             // Початок карточки знизу
             const objectbox = document.createElement("div");
@@ -127,8 +108,8 @@ fetch("swamp_polygon.geojson")
             const img = document.createElement("img");
             img.src = feature.properties.picture;
 
-            
-                      
+
+
             const caption = document.createElement("div");
             caption.className = "objectbox-name";
             caption.textContent = name;
@@ -142,25 +123,23 @@ fetch("swamp_polygon.geojson")
                 // Починає відображатися картка об'єкта - OK
                 cardContainer.style.display = "block";
                 // Отримати посилання на зображення з feature.properties.image
-              
-              // Отримуємо посилання на елемент card-description
-            const cardDescription = document.getElementById("card-description");
 
-            // Динамічне підставлення опису до болота
-            const description = feature.properties.description;
-            console.log(feature.properties);
-            cardDescription.textContent = description;
-              
+                // Отримуємо посилання на елемент card-description
+                const cardDescription = document.getElementById("card-description");
+
+                // Динамічне підставлення опису до болота
+                const description = feature.properties.description;
+                console.log(feature.properties);
+                cardDescription.textContent = description;
+
                 // Отримуємо посилання на елемент info-item-accordion-settl
-            const infoSettl = document.getElementById("info-item-accordion-settl");
+                const infoSettl = document.getElementById("info-item-accordion-settl");
 
-            // Динамічне підставлення опису до болота
-            const infosettl = feature.properties.nearest_settl;
-            infoSettl.textContent = infosettl;
-            
-              
-              
-              const imageUrl = feature.properties.image;
+                // Динамічне підставлення опису до болота
+                const infosettl = feature.properties.nearest_settl;
+                infoSettl.textContent = infosettl;
+
+                const imageUrl = feature.properties.image;
                 // Змінити src для зображення
                 document.getElementById("card-photo").src = imageUrl;
 
@@ -173,7 +152,7 @@ fetch("swamp_polygon.geojson")
                 const clickedPolygon = feature;
                 const bbox = turf.bbox(clickedPolygon);
                 map.fitBounds(bbox, {
-                    maxZoom: 10.7,  
+                    maxZoom: 10.7,
                     padding: { top: 50, bottom: 200, left: 100, right: 700 },
                     duration: 5000,
                 });
@@ -192,8 +171,8 @@ fetch("swamp_polygon.geojson")
 
         // Додавання на карту шарів полігонів та точок
         map.on("load", () => {
-            map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });  
-          // Додавання джерел геоданих (полігони + центроїди) - OK
+            map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
+            // Додавання джерел геоданих (полігони + центроїди) - OK
             map.addSource("polygons", {
                 type: "geojson",
                 data: data,
@@ -218,7 +197,7 @@ fetch("swamp_polygon.geojson")
                 type: "symbol",
                 source: "centroids",
                 layout: {
-                  "icon-image": "pulsing-dot"
+                    "icon-image": "pulsing-dot"
                 }
             });
 
@@ -236,8 +215,8 @@ fetch("swamp_polygon.geojson")
             });
 
             // Клік на полігон викликає картку - ОК
-            map.on("click", "polygons-fill", (e) => {  
-              // Перевірка, чи вже відображена власна картка
+            map.on("click", "polygons-fill", (e) => {
+                // Перевірка, чи вже відображена власна картка
                 if (cardContainer.style.display === "block") {
                     return;
                 }
@@ -256,8 +235,8 @@ fetch("swamp_polygon.geojson")
                 const clickedPolygon = e.features[0];
                 const bbox = turf.bbox(clickedPolygon);
                 map.fitBounds(bbox, {
-                  maxZoom: 10.7,  
-                  padding: { top: 50, bottom: 200, left: 100, right: 700 },
+                    maxZoom: 10.7,
+                    padding: { top: 50, bottom: 200, left: 100, right: 700 },
                     duration: 5000,
                 });
             });
@@ -287,25 +266,25 @@ function closeCard() {
 const accordionItems = document.querySelectorAll(".accordion-item");
 
 accordionItems.forEach((item) => {
-	const header = item.querySelector(".accordion-item-header");
-	const body = item.querySelector(".accordion-item-body");
+    const header = item.querySelector(".accordion-item-header");
+    const body = item.querySelector(".accordion-item-body");
 
-	header.addEventListener("click", () => {
-		accordionItems.forEach((accItem) => {
-			const accBody = accItem.querySelector(".accordion-item-body");
-			if (accItem !== item && !accBody.classList.contains("collapsed")) {
-				accBody.classList.add("collapsed");
-				accBody.style.height = "0";
-			}
-		});
+    header.addEventListener("click", () => {
+        accordionItems.forEach((accItem) => {
+            const accBody = accItem.querySelector(".accordion-item-body");
+            if (accItem !== item && !accBody.classList.contains("collapsed")) {
+                accBody.classList.add("collapsed");
+                accBody.style.height = "0";
+            }
+        });
 
-		body.classList.toggle("collapsed");
-		if (body.classList.contains("collapsed")) {
-			body.style.height = "0";
-		} else {
-			body.style.height = body.scrollHeight + "px";
-		}
-	});
+        body.classList.toggle("collapsed");
+        if (body.classList.contains("collapsed")) {
+            body.style.height = "0";
+        } else {
+            body.style.height = body.scrollHeight + "px";
+        }
+    });
 });
 
 

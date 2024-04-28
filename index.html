@@ -1,66 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Карта боліт</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css"
-    />
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
-    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
-  </head>
 
-  <body>
-    <div class="scroll-container">
-      <div class="content">
-        <div class="intro">
-          <img
-            
-            src="https://cdn.glitch.global/64f93d39-0244-4f49-aa3e-2a2f6ea75e2f/test2204_img.jpg?v=1713798319174"
-          />
-          <!--           <div class="zagolovok">Карта болотяних масивів України</div>
-          Карта основних боліт України демонструє розташування та розміри
-          важливих болітних угідь по всій території країни. Болота є важливими
-          екосистемами, що забезпечують унікальне середовище для багатьох видів
-          рослин та тварин. На карті можна виявити різноманітні типи боліт, від
-          лісових і багряних до заболочених лукарів. Кожен тип болота має свої
-          характеристики та специфіку середовища. Карта надає інформацію про
-          розподіл болітних угідь за регіонами України, вказуючи їх площу та
-          основні особливості. Наприклад, вона може відображати болота у
-          Західному, Центральному, Східному або Південному регіонах країни. Така
-          карта є корисним інструментом для наукових досліджень, планування
-          охорони довкілля та природокористування. Крім того, карта може
-          включати в себе дані про водні шляхи та важливі природно-заповідні
-          території, які знаходяться в межах болітних угідь. Це допомагає в
-          збереженні та відновленні унікальних природних середовищ та
-          біорізноманіття, які залежать від болотяних екосистем. -->
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Карта боліт</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+  <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+</head>
 
-        <div id="map">
-          <div class="toggleBtn">
-            <div class="center-shadow" id="shadowContainer">
-              <div class="start-button" onclick="startMap()">
-                Почати огляд карти
-              </div>
+<body>
+  <div class="scroll-container">
+    <div class="content">
+      <div class="intro">
+        <img style="width: 100%; display: block; margin: 0 auto;"
+          src="https://cdn.glitch.global/64f93d39-0244-4f49-aa3e-2a2f6ea75e2f/test2204_img.jpg?v=1713798319174" />
+      </div>
+
+      <div id="map">
+        <div class="toggleBtn">
+          <div class="center-shadow" id="shadowContainer">
+            <div class="start-button" onclick="startMap()">
+              Почати огляд карти
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Обєкти в нижній панелі -->
-        <div class="list-container" id="listContainer"></div>
+      <!-- Обєкти в нижній панелі -->
+      <div class="list-container" id="listContainer"></div>
 
-        <div id="bigname-below">
-          <div id="text-below"></div>
-<!--           <div id="next-object-button" onclick="nextObject()">
+      <div id="bigname-below">
+        <div id="text-below"></div>
+        <!--           <div id="next-object-button" onclick="nextObject()">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="icon icon-tabler icon-tabler-arrow-right"
@@ -79,84 +56,64 @@
               <path d="M13 6l6 6" />
             </svg>
           </div> -->
-        </div>
-        <div id="card-container">
-          <img
-            class="card-photo" id="card-photo"/>
-            <div id="card-description" class="card-description"></div> 
-         
-<div class="accordion">
-	<div class="accordion-item">
-		<div class="accordion-item-header">Живий світ</div>
-		<div class="accordion-item-body">
-			<p>Content for Accordion Item 1</p>
-		</div>
-	</div>
-	<div class="accordion-item">
-		<div class="accordion-item-header">Найближчі населені пункти</div>
-		<div class="accordion-item-body">
-			<div id="info-item-accordion-settl" class="info-item-accordion-settl"></div>
-		</div>
-	</div>
-	<div class="accordion-item">
-		<div class="accordion-item-header">Корисні посилання</div>
-		<div class="accordion-item-body">
-			<div class="links-container">
-        <a href="#" class="dark-link">Посилання 1</a>
-        <a href="#" class="dark-link">Посилання 2</a>
-        <a href="#" class="dark-link">Посилання 3</a>
-    </div>
-		</div>
-	</div>
-</div>
-          
-          <!--           кнопка закриття карточки   -->
-          <button onclick="closeCard()" class="close-button">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-x"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="3"
-              stroke="black"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M18 6l-12 12" />
-              <path d="M6 6l12 12" />
-            </svg>
-          </button>
-          <!--           кнопка "перевертання", переходу до тексту від картинки -->
-          <button onclick="goToDescription()" class="description-button">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-notes"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="black"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path
-                d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z"
-              />
-              <path d="M9 7l6 0" />
-              <path d="M9 11l6 0" />
-              <path d="M9 15l4 0" />
-            </svg>
-          </button>
+      </div>
+      <div id="card-container">
+        <img class="card-photo" id="card-photo" />
+        <div id="card-description" class="card-description"></div>
 
-<!--                     <div class="info-block">Увага! Відвідування даного об'єкту недоцільне</div> -->
+        <div class="accordion">
+          <div class="accordion-item">
+            <div class="accordion-item-header">Живий світ</div>
+            <div class="accordion-item-body">
+              <p>Content for Accordion Item 1</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-item-header">Найближчі населені пункти</div>
+            <div class="accordion-item-body">
+              <div id="info-item-accordion-settl" class="info-item-accordion-settl"></div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-item-header">Корисні посилання</div>
+            <div class="accordion-item-body">
+              <div class="links-container">
+                <a href="#" class="dark-link">Посилання 1</a>
+                <a href="#" class="dark-link">Посилання 2</a>
+                <a href="#" class="dark-link">Посилання 3</a>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!--           кнопка закриття карточки   -->
+        <button onclick="closeCard()" class="close-button">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24"
+            viewBox="0 0 24 24" stroke-width="3" stroke="black" fill="none" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </button>
+        <!--           кнопка "перевертання", переходу до тексту від картинки -->
+        <button onclick="goToDescription()" class="description-button">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-notes" width="24" height="24"
+            viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+            <path d="M9 7l6 0" />
+            <path d="M9 11l6 0" />
+            <path d="M9 15l4 0" />
+          </svg>
+        </button>
+
+        <!--                     <div class="info-block">Увага! Відвідування даного об'єкту недоцільне</div> -->
       </div>
     </div>
-    <script src="main.js"></script>
-  </body>
+  </div>
+  <script src="main.js"></script>
+</body>
+
 </html>
