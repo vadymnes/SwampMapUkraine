@@ -129,13 +129,10 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
 
                 // Динамічне підставлення опису до болота
                 const description = feature.properties.description;
-                console.log(feature.properties);
                 cardDescription.textContent = description;
 
-                // Отримуємо посилання на елемент info-item-accordion-settl
+                // Акордеон №2 - найближчі населені пункти до об'єкту
                 const infoSettl = document.getElementById("info-item-accordion-settl");
-
-                // Динамічне підставлення опису до болота
                 const infosettl = feature.properties.nearest_settl;
                 infoSettl.textContent = infosettl;
 
@@ -202,8 +199,8 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
             });
 
             // Діапазон зумів для шарів полігонів і точок (коли що відображається) - OK
-            map.setLayerZoomRange("polygons-fill", 9.5, 20);
-            map.setLayerZoomRange("centroids", 3, 9.5);
+            map.setLayerZoomRange("polygons-fill", 8.5, 20);
+            map.setLayerZoomRange("centroids", 3, 8.5);
 
             // Клік на точку наближає карту ближче до рамок полігону - OK
             map.on("click", "centroids", (e) => {
@@ -216,17 +213,27 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
 
             // Клік на полігон викликає картку - ОК
             map.on("click", "polygons-fill", (e) => {
-                // Перевірка, чи вже відображена власна картка
-                if (cardContainer.style.display === "block") {
-                    return;
-                }
-                const { description } = e.features[0].properties;
-                const { name } = e.features[0].properties;
-
+                               
                 // Показує вміст картки з інформацією про об'єкт після кліку на полігон - OK
                 cardContainer.style.display = "block";
+                // Отримуємо посилання на елемент card-description
+                const cardDescription = document.getElementById("card-description");
+
+                // Динамічне підставлення опису до болота
+                const description = e.features[0].properties.description;
+                cardDescription.textContent = description;
+
+                const imageUrl = e.features[0].properties.image;
+                // Змінити src для зображення
+                document.getElementById("card-photo").src = imageUrl;
+
+                // Акордеон №2 - найближчі населені пункти до об'єкту
+                const infoSettl = document.getElementById("info-item-accordion-settl");
+                const infosettl = e.features[0].properties.nearest_settl;
+                infoSettl.textContent = infosettl;
 
                 // Підпис об'єкта внизу - OK
+                const name = e.features[0].properties.name;
                 bigNameBelow.innerHTML = name;
                 document.getElementById("bigname-below").style.display = "block";
                 listContainer.style.display = "none";
@@ -263,8 +270,9 @@ function closeCard() {
     });
 };
 
-const accordionItems = document.querySelectorAll(".accordion-item");
 
+// Робота з акордеоном в картці об'єкта
+const accordionItems = document.querySelectorAll(".accordion-item");
 accordionItems.forEach((item) => {
     const header = item.querySelector(".accordion-item-header");
     const body = item.querySelector(".accordion-item-body");
