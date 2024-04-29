@@ -5,11 +5,9 @@ body {
   }
   #map {
     height: 100vh;
+    width:100vw;
   }
   .intro {
-    height: 448px;
-    width: 100%;
-    
     background-color: #d8dae0;
   }
   .scroll-container {
@@ -55,7 +53,7 @@ body {
   }
   
   .objectbox:hover {
-    width: calc(25% - 40px); /* Розрахунок ширини картки з відступами */
+    width: calc(25% - 30px); /* Розрахунок ширини картки з відступами */
     text-align: center;
     cursor: pointer;
   }
@@ -161,7 +159,7 @@ body {
   }
   #text-below {
     position: absolute;
-    top: 40%;
+    top: 20%;
     left: 50%;
     width: 750px;
     transform: translateX(-50%);
@@ -203,20 +201,20 @@ body {
   /* детальна картка - обводка  */
   #card-container {
     position: fixed;
-    top: 60px;
-    right: 80px;
+    top: 30px;
+    right: 50px;
     background-color: #d8dae0; /* Темний фон (стиль National Geographic) */
     color: #ffffff; /* Колір тексту (білий) */
     display: none;
     z-index: 2;
     width: 32vw;
     max-width: 500px;
+    max-height: 75vh;
     font-family: "Geologica", sans-serif;
     font-weight: 300;
     font-size: 16px;
     line-height: 1.5;
-    border-radius: 10px; /* Заокруглені кути */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Тінь */
+    overflow: auto;
   }
   /* Стилі для кнопки close */
   .close-button {
@@ -235,22 +233,6 @@ body {
     background-color: #9b9c9f; /* Колір фону кнопки при наведенні */
   }
   
-  /* Стилі для кнопки переходу до опису */
-  .description-button {
-    position: absolute; /* Абсолютне позиціонування */
-    background-color: #d8dae0;
-    background-opacity: 0.5;
-    top: 0px;
-    right: 40px;
-    color: white; /* Колір тексту на кнопці */
-    padding: 3px 3px; /* Відступи внутрішнього простору кнопки */
-    border: none; /* Видалення рамки */
-    cursor: pointer; /* Зміна вигляду курсору при наведенні */
-  }
-  
-  .description-button:hover {
-    background-color: #9b9c9f; /* Колір фону кнопки при наведенні */
-  }
   
   #card-description {
     padding: 0px 10px;
@@ -287,7 +269,7 @@ body {
   
   
   .accordion {
-      max-width: 400px;
+      padding: 0px 5px;
       margin: 5px auto;
   }
   .accordion-item {
@@ -297,7 +279,7 @@ body {
   .accordion-item-header {
       background-color: #f4f4f4;
     color: black;
-      padding: 10px;
+      padding: 2px 4px;
       cursor: pointer;
   }
   .accordion-item-body {
