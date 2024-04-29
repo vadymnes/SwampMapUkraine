@@ -120,6 +120,7 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
 
             // Клік в списку знизу по об'єкту - OK
             objectbox.addEventListener("click", function () {
+               
                 // Починає відображатися картка об'єкта - OK
                 cardContainer.style.display = "block"; 
 
@@ -230,6 +231,16 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                     "icon-allow-overlap": true
                 }
             });
+            map.addLayer({
+                id: "polygons-border",
+                type: "line",
+                source: "polygons",
+                paint: {
+                    "line-color": "white", 
+                    "line-width": 4, 
+                },
+                'filter': ['in', 'name', '']
+            });
 
             // Діапазон зумів для шарів полігонів і точок (коли що відображається) - OK
             map.setLayerZoomRange("polygons-fill", 8.5, 20);
@@ -246,7 +257,19 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
 
             // Клік на полігон викликає картку - ОК
             map.on("click", "polygons-fill", (e) => {
-                               
+                // Для підсвічування меж виділеного об'єкта.
+                const dd = [
+                    [e.point.x - 5, e.point.y - 5],
+                    [e.point.x + 5, e.point.y + 5]
+                ];
+                const selectedFeatures = map.queryRenderedFeatures(dd, {
+                    layers: ['polygons-fill']
+                });
+                const name_test = selectedFeatures.map(
+                    (feature) => feature.properties.name
+                );
+                map.setFilter('polygons-border', ['in', 'name', ...name_test]);
+
                 // Показує вміст картки з інформацією про об'єкт після кліку на полігон - OK
                 cardContainer.style.display = "block";
                 // Отримуємо посилання на елемент card-description
@@ -306,7 +329,6 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
 
                 // Центрування карти на вибраному об'єкті - ОК
                 const clickedPolygon = e.features[0];
-                console.log(clickedPolygon);
                 const bbox = turf.bbox(clickedPolygon);
                 map.fitBounds(bbox, {
                     maxZoom: 10.7,
@@ -331,6 +353,7 @@ function closeCard() {
     cardContainer.style.display = "none";
     listContainer.style.display = "flex";
     document.getElementById("bigname-below").style.display = "none";
+    map.setFilter('polygons-border', ['in', 'name', '']);
     map.flyTo({
         center: [30, 50],
         zoom: 6,
