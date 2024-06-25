@@ -203,8 +203,7 @@ body {
     position: fixed;
     top: 30px;
     right: 50px;
-    background-color: #d8dae0; /* Темний фон (стиль National Geographic) */
-    color: #ffffff; /* Колір тексту (білий) */
+    background-color: #ffffff; /* Білий фон картки */
     display: none;
     z-index: 2;
     width: 32vw;
@@ -215,6 +214,7 @@ body {
     font-size: 16px;
     line-height: 1.5;
     overflow: auto;
+    border-radius: 8px;
   }
   /* Стилі для кнопки close */
   .close-button {
@@ -273,14 +273,17 @@ body {
       margin: 5px auto;
   }
   .accordion-item {
-      border: 1px solid #ccc;
+      background-color: #cedce5;
       margin-bottom: 5px;
+      border-radius: 6px;
   }
   .accordion-item-header {
-      background-color: #f4f4f4;
-    color: black;
+      background-color: #cedce5;
+      color: black;
       padding: 2px 4px;
+      font-weight: 400;
       cursor: pointer;
+      border-radius: 6px;
   }
   .accordion-item-body {
       height: 0;
@@ -298,7 +301,7 @@ body {
   }
   
   .info-item-accordion-settl{
-    padding: 5px;
+          padding: 8px 16px;
   }
   
   .links-container {
@@ -319,3 +322,22 @@ body {
   .dark-link:hover {
       background-color: #98999e;
   }
+  /* Custom scrollbar for WebKit-based browsers */
+#card-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+#card-container::-webkit-scrollbar-track {
+  background: #e0e0e0;
+  border-radius: 10px;
+}
+
+#card-container::-webkit-scrollbar-thumb {
+  background-color: #a6afb4;
+  border-radius: 10px;
+  border: 3px solid #e0e0e0;
+}
+
+#card-container::-webkit-scrollbar-thumb:hover {
+  background-color: #7b858b;
+}
