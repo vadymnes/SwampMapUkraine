@@ -5,7 +5,7 @@ body {
   }
   #map {
     height: 100vh;
-    width:100vw;
+    max-width: calc(100vw - var(--scrollbar-width));
   }
   .intro {
     background-color: #d8dae0;
