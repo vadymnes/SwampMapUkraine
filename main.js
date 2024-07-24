@@ -1,9 +1,9 @@
 // ввідні дані про карту
-// mapboxgl.accessToken =
-//     "pk.eyJ1IjoidmFkZW52bWFwa3lpdiIsImEiOiJja2RwczBzcXYwMjgzMnprdWVxMTB2aWU0In0.OBDKIqeo6YDnxaEZR4bdIA";
-const map = new maplibregl.Map({
+mapboxgl.accessToken =
+    "pk.eyJ1IjoidmFkZW52bWFwa3lpdiIsImEiOiJja2RwczBzcXYwMjgzMnprdWVxMTB2aWU0In0.OBDKIqeo6YDnxaEZR4bdIA";
+const map = new mapboxgl.Map({
     container: "map",
-    style: "https://api.mapbox.com/styles/v1/vadenvmapkyiv/clrcdpfvr00aw01p4hk2yewzs/wmts?access_token=pk.eyJ1IjoidmFkZW52bWFwa3lpdiIsImEiOiJja2RwczBzcXYwMjgzMnprdWVxMTB2aWU0In0.OBDKIqeo6YDnxaEZR4bdIA",
+    style: "mapbox://styles/vadenvmapkyiv/clrcdpfvr00aw01p4hk2yewzs",
     center: [30.71, 50.46], //карта світу на початку, з вкладкою інтро
     zoom: 4,
     pitch: 40,
