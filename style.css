@@ -123,7 +123,7 @@ body, h1, h2, h3, p, a  {
   background-color: #46481c; /* Колір кнопки */
   display: inline-block;
   font-family: "Geologica", sans-serif;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 600;
   color: aliceblue;/* Колір тексту на кнопці */
   position: absolute;
@@ -132,7 +132,7 @@ body, h1, h2, h3, p, a  {
   transform: translate(-50%, -50%);
   z-index: 2;
   max-width: max-content;
-  padding: 10px 20px; /* Відступи внутрішнього простору кнопки */
+  padding: 15px 20px; /* Відступи внутрішнього простору кнопки */
   margin-top: 10px;
   border-radius: 8px; /* Заокруглені кути */
   cursor: pointer; /* Зміна вигляду курсору при наведенні */
