@@ -120,15 +120,17 @@ body {
   cursor: pointer;
 }
 .start-button {
-  background-color: #c0392b; /* Іржавий колір кнопки */
+  background-color: #a9ad54; /* Іржавий колір кнопки */
   display: inline-block;
+  font-size: 20px;
+  font-weight: 600;
+  color: aliceblue;/* Колір тексту на кнопці */
   position: absolute;
-  top: 50%;
+  top: 10%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
   max-width: max-content;
-  color: #ffffff; /* Колір тексту на кнопці */
   padding: 10px 20px; /* Відступи внутрішнього простору кнопки */
   margin-top: 10px;
   border-radius: 8px; /* Заокруглені кути */
@@ -137,7 +139,7 @@ body {
 }
 
 .start-button:hover {
-  background-color: #922b21; /* Темніший іржавий колір при наведенні */
+  background-color: #7f823f; /* Темніший колір при наведенні */
 }
 
 #bigname-below {
