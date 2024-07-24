@@ -1,4 +1,4 @@
-body {
+body, h1, h2, h3, p, a  {
   margin: 0;
   padding: 0;
   font-family: "Geologica", sans-serif;
@@ -120,13 +120,14 @@ body {
   cursor: pointer;
 }
 .start-button {
-  background-color: #a9ad54; /* Іржавий колір кнопки */
+  background-color: #46481c; /* Колір кнопки */
   display: inline-block;
+  font-family: "Geologica", sans-serif;
   font-size: 20px;
   font-weight: 600;
   color: aliceblue;/* Колір тексту на кнопці */
   position: absolute;
-  top: 10%;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
