@@ -9,7 +9,7 @@ const map = new mapboxgl.Map({
     pitch: 40,
 });
 
-// pulsing dot icon on the map.
+// пульсуюча іконка на карті.
 const size = 100;
 const pulsingDot = {
     width: size,
@@ -62,10 +62,9 @@ const pulsingDot = {
     }
 };
 
-const cardContainer = document.getElementById("card-container");
-const cardTitle = document.querySelector(".card-title");
-const cardDescription = document.querySelector(".card-description");
-const bigNameBelow = document.getElementById("text-below");
+const cardContainer = document.getElementById("cardContainer");
+const cardTitle = document.querySelector("cardTitle");
+const cardDescription = document.querySelector("cardDescription");
 
 // Запуск карти після ознайомлення з прев'ю
 function startMap() {
@@ -96,98 +95,48 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
     .then((data) => {
         const listContainer = document.querySelector(".list-container");
 
-        data.features.forEach((feature, index) => {
-            // Витягування назви та опису об'єкта
+        data.features.forEach((feature) => {
+            // Витягування назви для списку знизу
             const name = feature.properties.name;
-
-
-            // Початок карточки знизу
-            const objectbox = document.createElement("div");
-            objectbox.className = "objectbox";
-
+            // Вивід списку знизу включно з підтягуванням зображення
+            const listItem = document.createElement("div");
+            listItem.className = "objectbox";
             const img = document.createElement("img");
             img.src = feature.properties.picture;
-
-
 
             const caption = document.createElement("div");
             caption.className = "objectbox-name";
             caption.textContent = name;
 
-            objectbox.appendChild(img);
-            objectbox.appendChild(caption);
-            listContainer.appendChild(objectbox);
+            listItem.appendChild(img);
+            listItem.appendChild(caption);
+            listContainer.appendChild(listItem);
 
-            // Клік в списку знизу по об'єкту - OK
-            objectbox.addEventListener("click", function () {
-               
-                // Починає відображатися картка об'єкта - OK
-                cardContainer.style.display = "block"; 
+            // Клік при натисненні в списку знизу відкриває картку об'єкта - ОК
+            listItem.addEventListener("click", function () {
+                // Відображення картки об'єкта
+                const cardContainer = document.getElementById("cardContainer");
+                cardContainer.style.display = "block";
 
-                // Отримуємо посилання на елемент card-description
-                const cardDescription = document.getElementById("card-description");
-
-                // Динамічне підставлення опису до болота
-                const description = feature.properties.description;
-                cardDescription.textContent = description;
-
-                // Акордеон №2 - найближчі населені пункти до об'єкту
-                const infoSettl = document.getElementById("info-item-accordion-settl");
-                const infosettl = feature.properties.nearest_settl;
-                infoSettl.textContent = infosettl;
-
-                // Зображення в картці
-                const imageUrl = feature.properties.image;
-                document.getElementById("card-photo").src = imageUrl;
-
-                // Посилання в картці
-                // const linksContainer = document.querySelector('.links-container');
-                // const links = feature.properties.links;
-                // linksContainer.innerHTML = '';
-                // links.forEach(link => {
-                //     const linkElement = document.createElement('a');
-                //     linkElement.href = link.url; 
-                //     linkElement.textContent = link.name;
-                //     linkElement.classList.add('dark-link');
-
-                //     // Створення іконки
-                //     const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                //     iconSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-                //     iconSvg.setAttribute('class', 'icon icon-tabler icon-tabler-external-link');
-                //     iconSvg.setAttribute('width', '24');
-                //     iconSvg.setAttribute('height', '24');
-                //     iconSvg.setAttribute('viewBox', '0 0 24 24');
-                //     iconSvg.setAttribute('stroke-width', '1.5');
-                //     iconSvg.setAttribute('stroke', '#2c3e50');
-                //     iconSvg.setAttribute('fill', 'none');
-                //     iconSvg.setAttribute('stroke-linecap', 'round');
-                //     iconSvg.setAttribute('stroke-linejoin', 'round');
-                //     iconSvg.innerHTML = `
-                //         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                //         <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" />
-                //         <path d="M11 13l9 -9" />
-                //         <path d="M15 4h5v5" />
-                //     `;
-                //     linkElement.appendChild(iconSvg);
-                    
-                //     linksContainer.appendChild(linkElement);
-                // });
-
-                // Відображення назви об'єкту внизу сторінки + приховується нижній список об'єктів - OK
-                bigNameBelow.innerHTML = name;
-                document.getElementById("bigname-below").style.display = "block";
                 listContainer.style.display = "none";
 
-                // Наближення карти до об'єкта з списку знизу - OK
-                const clickedPolygon = feature;
-                const bbox = turf.bbox(clickedPolygon);
+                // Наближення карти до об'єкта + виділення рамкою - ОК
+                const bbox = turf.bbox(feature);
+                map.setFilter('polygons-border', ['in', 'name', feature.properties.name]);
                 map.fitBounds(bbox, {
-                    maxZoom: 10.7,
-                    padding: { top: 50, bottom: 200, left: 100, right: 700 },
-                    duration: 5000,
+                    maxZoom: 15,
+                    padding: { top: 150, bottom: 150, left: 400, right: 150 },
+                    duration: 4000,
                 });
 
+                // Заповнення інформації в картці - ОК
+                document.getElementById("cardTitle").innerText = feature.properties.name; // Назва об'єкта
+                document.getElementById("cardImage").src = feature.properties.image; // Додайте правильне поле з URL зображення
+                document.getElementById("card-description").innerText = feature.properties.description; // Опис об'єкта
             });
+
+            // Додаємо елемент до списку
+            listContainer.appendChild(listItem);
         });
 
         // Генерація центроїдів (точок) з полігонів через turf.centroid - OK
@@ -236,8 +185,8 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 type: "line",
                 source: "polygons",
                 paint: {
-                    "line-color": "white", 
-                    "line-width": 4, 
+                    "line-color": "white",
+                    "line-width": 2,
                 },
                 'filter': ['in', 'name', '']
             });
@@ -257,83 +206,45 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
 
             // Клік на полігон викликає картку - ОК
             map.on("click", "polygons-fill", (e) => {
-                // Для підсвічування меж виділеного об'єкта.
-                const dd = [
-                    [e.point.x - 5, e.point.y - 5],
-                    [e.point.x + 5, e.point.y + 5]
-                ];
-                const selectedFeatures = map.queryRenderedFeatures(dd, {
-                    layers: ['polygons-fill']
-                });
-                const name_test = selectedFeatures.map(
-                    (feature) => feature.properties.name
-                );
-                map.setFilter('polygons-border', ['in', 'name', ...name_test]);
 
-                // Показує вміст картки з інформацією про об'єкт після кліку на полігон - OK
+                const cardContainer = document.getElementById("cardContainer");
                 cardContainer.style.display = "block";
-                // Отримуємо посилання на елемент card-description
-                const cardDescription = document.getElementById("card-description");
 
-                // Динамічне підставлення опису до болота
-                const description = e.features[0].properties.description;
-                cardDescription.textContent = description;
-
-                const imageUrl = e.features[0].properties.image;
-                // Змінити src для зображення
-                document.getElementById("card-photo").src = imageUrl;
-
-                // Акордеон №2 - Найближчі населені пункти до об'єкту
-                const infoSettl = document.getElementById("info-item-accordion-settl");
-                const infosettl = e.features[0].properties.nearest_settl;
-                infoSettl.textContent = infosettl;
-
-                // Акордеон №3 - Посилання в картці - НЕ ОК - поки блокує нижній блок (наближення до полігона)
-                // const linksContainer = document.querySelector('.links-container');
-                // const links = e.features[0].properties.links;
-                // linksContainer.innerHTML = '';
-                // links.forEach(link => {
-                //     const linkElement = document.createElement('a');
-                //     linkElement.href = link.url; 
-                //     linkElement.textContent = link.name;
-                //     linkElement.classList.add('dark-link');
-
-                //     // Створення іконки
-                //     const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                //     iconSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-                //     iconSvg.setAttribute('class', 'icon icon-tabler icon-tabler-external-link');
-                //     iconSvg.setAttribute('width', '24');
-                //     iconSvg.setAttribute('height', '24');
-                //     iconSvg.setAttribute('viewBox', '0 0 24 24');
-                //     iconSvg.setAttribute('stroke-width', '1.5');
-                //     iconSvg.setAttribute('stroke', '#2c3e50');
-                //     iconSvg.setAttribute('fill', 'none');
-                //     iconSvg.setAttribute('stroke-linecap', 'round');
-                //     iconSvg.setAttribute('stroke-linejoin', 'round');
-                //     iconSvg.innerHTML = `
-                //         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                //         <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" />
-                //         <path d="M11 13l9 -9" />
-                //         <path d="M15 4h5v5" />
-                //     `;
-                //     linkElement.appendChild(iconSvg);
-                    
-                //     linksContainer.appendChild(linkElement);
-                // });
-
-                // Підпис об'єкта внизу - OK
-                const name = e.features[0].properties.name;
-                bigNameBelow.innerHTML = name;
-                document.getElementById("bigname-below").style.display = "block";
                 listContainer.style.display = "none";
+
+                const features = map.queryRenderedFeatures(e.point, {
+                    layers: ['polygons-fill'] // Задаємо шар, з якого потрібно отримати атрибути
+                });
+
+                const feature = features[0];
+                const name = feature.properties.name;
+                const img = document.createElement("img");
+                img.src = feature.properties.picture;
+
+                // Заповнення інформації в картці - ОК
+                document.getElementById("cardTitle").innerText = feature.properties.name; // Назва об'єкта
+                document.getElementById("cardImage").src = feature.properties.image; // Додайте правильне поле з URL зображення
+                document.getElementById("card-description").innerText = feature.properties.description; // Опис об'єкта
+
+
+                // Вивід списку знизу включно з підтягуванням зображення
+                const listItem = document.createElement("div");
+                listItem.className = "objectbox";
+
+                const caption = document.createElement("div");
+                caption.className = "objectbox-name";
+                caption.textContent = name;
+
+
+                map.setFilter('polygons-border', ['in', 'name', name]);
 
                 // Центрування карти на вибраному об'єкті - ОК
                 const clickedPolygon = e.features[0];
                 const bbox = turf.bbox(clickedPolygon);
                 map.fitBounds(bbox, {
-                    maxZoom: 10.7,
-                    padding: { top: 50, bottom: 200, left: 100, right: 700 },
-                    duration: 5000,
+                    maxZoom: 15,
+                    padding: { top: 150, bottom: 150, left: 400, right: 150 },
+                    duration: 4000,
                 });
             });
 
