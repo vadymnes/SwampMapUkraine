@@ -110,10 +110,9 @@ backdrop-filter: blur(3px);
 }
 
 .card-description {
-  width: 80%;
-  margin: 10px;
+  max-width: 30vw;
   font-size: 2vh;
-  max-height: 40vh; /* Задайте максимальну висоту контейнера */
+  max-height: 38vh;
   overflow-y: auto;
 }
 
@@ -135,36 +134,59 @@ backdrop-filter: blur(3px);
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
+  align-items: center;
+  gap: 8px; /* Зменшений інтервал для кращого поєднання */
 }
 
 .info-button {
-  width: 20vw; /* Ширина кнопки */
-  padding: 20px; /* Внутрішні відступи */
-  border: 1px solid rgba(255, 255, 255, 0.5); 
+  width: 20vw; 
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
   background: rgba(47, 46, 49, 0.5);
-backdrop-filter: blur(3.4px);
--webkit-backdrop-filter: blur(3.4px);
-  color: #ffffff; /* Колір тексту */
-  font-size: 20px; /* Розмір шрифту */
-  border-radius: 15px 0px 0px 15px; /* Закруглені кути */
-  cursor: pointer; /* Показати курсор руки при наведенні */
-  text-align: left; /* Вирівнювання тексту */
-  transition: 0.3s ease, transform 0.3s ease; /* Плавні переходи для фону та трансформації */
+  backdrop-filter: blur(3.4px);
+  -webkit-backdrop-filter: blur(3.4px);
+  color: #ffffff;
+  font-size: 20px;
+  border-radius: 15px 0px 0px 15px;
+  cursor: pointer;
+  text-align: left;
+  transition: 0.3s ease, transform 0.3s ease;
 }
 
 .info-button:hover {
   background: rgba(52, 80, 73, 0.9);
   font-size: 21px;
-  transform: translateY(-6px); /* Легке підняття кнопки при наведенні */
+  transform: translateY(-6px);
 }
 
-/* Стиль для активного стану */
 .info-button:active {
-  transform: translateY(2px); /* Легке опускання кнопки при натисканні */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Зменшена тінь при натисканні */
+  transform: translateY(2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+.info-button:after {
+  border: 0px solid;
+}
+
+/* Стилі для контенту акордеону */
+.accordion-content {
+  max-height: 0; /* Початкова висота - 0 */
+  overflow: hidden; /* Приховати контент */
+  width: 18vw; /* Має збігатися з шириною кнопки */
+  background: rgba(47, 46, 49, 0.5);
+  color: #ffffff;
+  border-radius: 0 0 10px 10px; /* Плавне округлення нижніх країв */
+  margin-top: -10px; /* Зменшений інтервал для поєднання з кнопкою */
+  padding: 0 15px; /* Внутрішні відступи для контенту */
+  transition: max-height 0.5s ease; /* Анімація розгортання */
+}
+
+/* Активний стан для контенту */
+.accordion-content.open {
+  max-height: 300px; /* Максимальна висота для розгортання */
+  padding: 10px 25px; /* Внутрішні відступи при відкритті */
+}
+
 
 /* Стилі для кнопки close */
 .close-button {

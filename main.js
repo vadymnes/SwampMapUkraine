@@ -124,8 +124,8 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 const bbox = turf.bbox(feature);
                 map.setFilter('polygons-border', ['in', 'name', feature.properties.name]);
                 map.fitBounds(bbox, {
-                    maxZoom: 15,
-                    padding: { top: 150, bottom: 150, left: 400, right: 150 },
+                    maxZoom: 11,
+                    padding: { top: 150, bottom: 150, left: 800, right: 50 },
                     duration: 4000,
                 });
 
@@ -133,6 +133,11 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 document.getElementById("cardTitle").innerText = feature.properties.name; // Назва об'єкта
                 document.getElementById("cardImage").src = feature.properties.image; // Додайте правильне поле з URL зображення
                 document.getElementById("card-description").innerText = feature.properties.description; // Опис об'єкта
+                
+                // const infoContent = feature.properties.nearest_settl;
+
+    // Виводимо інформацію в перше поле accordion-content
+    document.querySelectorAll('.accordion-content')[0].innerHTML = infoContent;
             });
 
             // Додаємо елемент до списку
@@ -242,8 +247,8 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 const clickedPolygon = e.features[0];
                 const bbox = turf.bbox(clickedPolygon);
                 map.fitBounds(bbox, {
-                    maxZoom: 15,
-                    padding: { top: 150, bottom: 150, left: 400, right: 150 },
+                    maxZoom: 11,
+                    padding: { top: 150, bottom: 150, left: 800, right: 50 },
                     duration: 4000,
                 });
             });
@@ -272,26 +277,11 @@ function closeCard() {
 };
 
 
-// Робота з акордеоном в картці об'єкта
-const accordionItems = document.querySelectorAll(".accordion-item");
-accordionItems.forEach((item) => {
-    const header = item.querySelector(".accordion-item-header");
-    const body = item.querySelector(".accordion-item-body");
-
-    header.addEventListener("click", () => {
-        accordionItems.forEach((accItem) => {
-            const accBody = accItem.querySelector(".accordion-item-body");
-            if (accItem !== item && !accBody.classList.contains("collapsed")) {
-                accBody.classList.add("collapsed");
-                accBody.style.height = "0";
-            }
-        });
-
-        body.classList.toggle("collapsed");
-        if (body.classList.contains("collapsed")) {
-            body.style.height = "0";
-        } else {
-            body.style.height = body.scrollHeight + "px";
-        }
+// Додаємо обробку подій для кнопок
+document.querySelectorAll('.info-button').forEach((button, index) => {
+    button.addEventListener('click', () => {
+      const content = document.querySelectorAll('.accordion-content')[index];
+      content.classList.toggle('open'); // Перемикаємо клас "open"
     });
-});
+  });
+  
