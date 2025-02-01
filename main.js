@@ -132,12 +132,28 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 // Заповнення інформації в картці - ОК
                 document.getElementById("cardTitle").innerText = feature.properties.name; // Назва об'єкта
                 document.getElementById("cardImage").src = feature.properties.image; // Додайте правильне поле з URL зображення
-                document.getElementById("card-description").innerText = feature.properties.description; // Опис об'єкта
-                
-                // const infoContent = feature.properties.nearest_settl;
+                document.getElementById("card-description").innerText = feature.properties.description.replace(/<\/?br>/g, '\n'); // Опис об'єкта
 
-    // Виводимо інформацію в перше поле accordion-content
-    document.querySelectorAll('.accordion-content')[0].innerHTML = infoContent;
+                const settlInfoContent = feature.properties.nearest_settl;
+                const linksInfoContent = feature.properties.links;
+                // Створюємо пусту змінну для зберігання HTML-контенту
+                let content = '';
+
+                // Перебираємо масив links
+                linksInfoContent.forEach(link => {
+                    // Для кожного об'єкта додаємо назву та посилання в HTML-форматі
+                    content += `
+                        <p>
+                            <a style="display: inline-flex;  align-items: center;  gap: 8px;" href="${link.link}" target="_blank"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="white"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg>${link.name}</a>
+                        </p>
+                    `;
+                });
+
+                // Виводимо інформацію в перше поле accordion-content
+                document.querySelectorAll('.accordion-content')[0].innerHTML = settlInfoContent;
+
+                // Виводимо інформацію в другий розділ "Посилання" акордеону
+                document.querySelectorAll('.accordion-content')[1].innerHTML = content;
             });
 
             // Додаємо елемент до списку
@@ -280,8 +296,7 @@ function closeCard() {
 // Додаємо обробку подій для кнопок
 document.querySelectorAll('.info-button').forEach((button, index) => {
     button.addEventListener('click', () => {
-      const content = document.querySelectorAll('.accordion-content')[index];
-      content.classList.toggle('open'); // Перемикаємо клас "open"
+        const content = document.querySelectorAll('.accordion-content')[index];
+        content.classList.toggle('open'); // Перемикаємо клас "open"
     });
-  });
-  
+});
