@@ -99,19 +99,20 @@ backdrop-filter: blur(3px);
 
 .card-title {
   font-size: 40px;
-  padding: 25px 0px;
+  padding: 15px 0px;
   max-height: 5vh;
 }
 
 .card-photo {
   max-height: 45vh;
   height: auto;
+  margin: 20px 0px;
   border-radius: 38px;
 }
 
 .card-description {
-  max-width: 30vw;
-  font-size: 2vh;
+  font-size:calc(14px + 0.5vw);
+  font-weight: 300;
   max-height: 38vh;
   overflow-y: auto;
 }
@@ -196,7 +197,7 @@ backdrop-filter: blur(3px);
 backdrop-filter: blur(3.4px);
 -webkit-backdrop-filter: blur(3.4px);
   top: 10px; /* Відстань від верху */
-  right: 10px; /* Відстань від правого краю */
+  right: 60px; /* Відстань від правого краю */
   padding: 12px; /* Відступи внутрішнього простору кнопки */
   border-radius: 10px; /* Округлі кути для кнопки */
   cursor: pointer; /* Зміна вигляду курсору при наведенні */

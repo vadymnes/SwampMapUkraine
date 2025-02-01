@@ -125,7 +125,7 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 map.setFilter('polygons-border', ['in', 'name', feature.properties.name]);
                 map.fitBounds(bbox, {
                     maxZoom: 11,
-                    padding: { top: 150, bottom: 150, left: 800, right: 50 },
+                    padding: { top: 150, bottom: 150, left: 400, right: 50 },
                     duration: 4000,
                 });
 
@@ -248,7 +248,7 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 const bbox = turf.bbox(clickedPolygon);
                 map.fitBounds(bbox, {
                     maxZoom: 11,
-                    padding: { top: 150, bottom: 150, left: 800, right: 50 },
+                    padding: { top: 150, bottom: 150, left: 400, right: 50 },
                     duration: 4000,
                 });
             });
