@@ -181,17 +181,37 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 type: "geojson",
                 data: centroidsGeoJSON,
             });
-
+            map.loadImage(
+                'https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/refs/heads/main/assets/bog_pattern/bog_pattern_v4.png',
+                (err, image) => {
+                    // Throw an error if something goes wrong.
+                    if (err) throw err;
+    
+                    // Add the image to the map style.
+                    map.addImage('pattern', image);
+    
+                    // Create a new layer and style it using `fill-pattern`.
+                    map.addLayer({
+                        'id': 'pattern-layer',
+                        'type': 'fill',
+                        'source': 'polygons',
+                        'paint': {
+                            'fill-pattern': 'pattern'
+                        }
+                    });
+                }
+            );
             // Стилізація шарів полігонів та точок - OK
-            map.addLayer({
-                id: "polygons-fill",
-                type: "fill",
-                source: "polygons",
-                layout: {},
-                paint: {
-                    "fill-color": "#DE4F12",
-                },
-            });
+            // map.addLayer({
+            //     id: "polygons-fill",
+            //     type: "fill",
+            //     source: "polygons",
+            //     layout: {},
+            //     paint: {
+            //         "fill-color": "#DE4F12",
+            //     },
+            // });
+    
             map.addLayer({
                 id: "centroids",
                 type: "symbol",
