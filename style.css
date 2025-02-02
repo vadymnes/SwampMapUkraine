@@ -227,51 +227,38 @@ a {
   border: 0px solid;
 }
 
-/* Стилі для контенту акордеону */
+/* Стилі для контенту (вкладень) акордеону */
 .accordion-content {
   max-height: 0;
-  /* Початкова висота - 0 */
   overflow: hidden;
-  /* Приховати контент */
-  width: 18vw;
-  /* Має збігатися з шириною кнопки */
-  background: rgba(47, 46, 49, 0.5);
+  width: 21vw;
   color: #ffffff;
-  border-radius: 0 0 10px 10px;
-  /* Плавне округлення нижніх країв */
   margin-top: -10px;
-  /* Зменшений інтервал для поєднання з кнопкою */
   transition: max-height 0.5s ease;
-  /* Анімація розгортання */
 }
 
 /* Стилі для абзаців з посиланнями */
 .accordion-content p {
   margin: 10px 0;
-  /* Відступи між елементами */
-  font-family: Arial, sans-serif;
-  /* Шрифт */
   font-size: 16px;
-  /* Розмір шрифту */
 }
 
 /* Стилі для посилань (кнопок) */
 .accordion-content a {
   display: inline-block;
-  padding: 10px 20px;
-  /* Відступи всередині кнопки */
+  padding: 10px;
   font-size: 16px;
-  /* Розмір шрифту */
   color: white;
-  /* Колір тексту */
   background-color: rgb(52 80 73 / 34%);
-  /* Основний колір кнопки */
   border-radius: 5px;
-  /* Закруглені кути */
   text-decoration: none;
-  /* Видаляємо підкреслення */
   transition: background-color 0.3s ease, transform 0.2s ease;
-  /* Ефекти при наведенні */
+}
+
+.accordion-content a svg {
+  width: 20px; /* Фіксований розмір іконки */
+  height: 20px;
+  flex-shrink: 0; /* Забороняє зміну розміру */
 }
 
 /* Ефект при наведенні */

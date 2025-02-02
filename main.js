@@ -131,8 +131,9 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
 
                 // Заповнення інформації в картці - ОК
                 document.getElementById("cardTitle").innerText = feature.properties.name; // Назва об'єкта
-                document.getElementById("cardImage").src = feature.properties.image; // Додайте правильне поле з URL зображення
-                document.getElementById("card-description").innerText = feature.properties.description.replace(/<\/?br>/g, '\n'); // Опис об'єкта
+                document.getElementById("cardImage").src = feature.properties.image; 
+                document.getElementById("photoCredit").innerText = feature.properties.image_copyright; 
+                document.getElementById("card-description").innerText = feature.properties.description; // Опис об'єкта
 
                 const conservation_regimeInfoContent = feature.properties.conservation_regime;
                 const linksInfoContent = feature.properties.links;
@@ -157,7 +158,7 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 document.querySelectorAll('.accordion-content')[1].innerHTML = content;
 
                 // Виводимо інформацію в третій розділ акордеонів (Як дібратися)
-                document.querySelectorAll('.accordion-content')[1].innerHTML = routeInfoContent;
+                document.querySelectorAll('.accordion-content')[2].innerHTML = routeInfoContent;
             });
 
             // Додаємо елемент до списку
@@ -259,7 +260,8 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
 
                 // Заповнення інформації в картці - ОК
                 document.getElementById("cardTitle").innerText = feature.properties.name; // Назва об'єкта
-                document.getElementById("cardImage").src = feature.properties.image; // Додайте правильне поле з URL зображення
+                document.getElementById("cardImage").src = feature.properties.image; 
+                document.getElementById("photoCredit").src = feature.properties.image_copyright; 
                 document.getElementById("card-description").innerText = feature.properties.description; // Опис об'єкта
 
 
