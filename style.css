@@ -1,21 +1,30 @@
-body, h1, h2, h3, p, a  {
+body,
+h1,
+h2,
+h3,
+p,
+a {
   margin: 0;
   padding: 0;
   font-family: "Geologica", sans-serif;
 }
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 0px;
 }
+
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  background: #6d6d6d; 
+  background: #6d6d6d;
 }
+
 #map {
   height: 100vh;
   width: 100vw;
 }
+
 .intro {
   background-color: #d8dae0;
   width: 100vw;
@@ -28,11 +37,18 @@ body, h1, h2, h3, p, a  {
 }
 
 
-.list-container /* Обєкти в нижній панелі */ {
-  position: absolute; /* щоб розмістити поверх мапи */
-  bottom: 0; /* розташування карток в нижній частині */
-  left: 50%; /* по центру */
-  transform: translateX(-50%); /* Зсув на половину власної ширини назад  (?) */
+.list-container
+
+/* Обєкти в нижній панелі */
+  {
+  position: absolute;
+  /* щоб розмістити поверх мапи */
+  bottom: 0;
+  /* розташування карток в нижній частині */
+  left: 50%;
+  /* по центру */
+  transform: translateX(-50%);
+  /* Зсув на половину власної ширини назад  (?) */
   width: 80%;
   max-width: 1000px;
   display: none;
@@ -41,46 +57,61 @@ body, h1, h2, h3, p, a  {
   padding: 30px;
 }
 
-.center-shadow /* Затемнення карти на початку*/{
+.center-shadow
+
+/* Затемнення карти на початку*/
+  {
   position: absolute;
-  z-index:1;
+  z-index: 1;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(216,218,224, 0.5); /* Півпрозорий фон на початку переходу на карту */
+  background-color: rgba(216, 218, 224, 0.5);
+  /* Півпрозорий фон на початку переходу на карту */
   color: white;
   border: none;
   cursor: pointer;
 }
-.start-button /* Стиль стартової кнопки */ {
-  background-color: #46481c; /* Колір кнопки */
+
+.start-button
+
+/* Стиль стартової кнопки */
+  {
+  background-color: #46481c;
+  /* Колір кнопки */
   display: inline-block;
   font-family: "Geologica", sans-serif;
   font-size: 25px;
   font-weight: 600;
-  color: aliceblue;/* Колір тексту на кнопці */
+  color: aliceblue;
+  /* Колір тексту на кнопці */
   position: absolute;
   top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
   max-width: max-content;
-  padding: 15px 20px; /* Відступи внутрішнього простору кнопки */
+  padding: 15px 20px;
+  /* Відступи внутрішнього простору кнопки */
   margin-top: 10px;
-  border-radius: 8px; /* Заокруглені кути */
-  cursor: pointer; /* Зміна вигляду курсору при наведенні */
-  transition: background-color 0.3s; /* Анімація при зміні фонового кольору */
+  border-radius: 8px;
+  /* Заокруглені кути */
+  cursor: pointer;
+  /* Зміна вигляду курсору при наведенні */
+  transition: background-color 0.3s;
+  /* Анімація при зміні фонового кольору */
 }
 
 .start-button:hover {
-  background-color: #7f823f; /* Темніший колір при наведенні */
+  background-color: #7f823f;
+  /* Темніший колір при наведенні */
 }
 
 .card-container {
   position: fixed;
   z-index: 2;
-  width: 100%;
+  width: 50%;
   height: 100%;
   display: none;
 }
@@ -88,34 +119,55 @@ body, h1, h2, h3, p, a  {
 .card-info {
   color: #fff;
   padding: 0px 20px;
-  width: 40%;
+  width: 90%;
   height: 100%;
   z-index: 2;
   /* background: linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 50%,rgba(255, 255, 255, 0.2) 90%, rgba(255, 255, 255, 0) 100%); */
-border-radius: 16px;
-backdrop-filter: blur(3px);
--webkit-backdrop-filter: blur(3px);
+  border-radius: 16px;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 .card-title {
   font-size: 40px;
-  padding: 15px 0px;
+  position: relative;
+  left: 60px;
+  padding: 10px 0px;
   max-height: 5vh;
+}
+
+.card-photo-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
 }
 
 .card-photo {
   max-height: 45vh;
-  height: 45vh; /* Фіксуємо висоту */
-  width: auto; /* Автоматична ширина */
-  min-width: 100%; /* Мінімальна ширина, щоб розтягнути зображення */
-  display: block; /* Усуває зайві відступи */
-  margin: 20px auto; /* Вирівнює по центру */
+  height: 45vh;
+  /* Фіксуємо висоту */
+  width: auto;
+  /* Автоматична ширина */
+  min-width: 100%;
+  /* Мінімальна ширина, щоб розтягнути зображення */
+  display: block;
+  /* Усуває зайві відступи */
+  margin: 20px auto;
+  /* Вирівнює по центру */
   border-radius: 38px;
-  object-fit: cover; /* Запобігає спотворенню */
+  object-fit: cover;
+  /* Запобігає спотворенню */
+}
+
+.photo-credit {
+  position: absolute;
+  bottom: 30px;
+  left: 35px;
+  font-size: 12px;
 }
 
 .card-description {
-  font-size:calc(14px + 0.5vw);
+  font-size: calc(14px + 0.5vw);
   font-weight: 300;
   max-height: 38vh;
   overflow-y: auto;
@@ -128,26 +180,28 @@ backdrop-filter: blur(3px);
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .card-description {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .button-container {
-  position: absolute;
+  position: fixed;
   top: 50%;
   right: 0;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px; /* Зменшений інтервал для кращого поєднання */
+  gap: 8px;
 }
 
 .info-button {
-  width: 22vw; 
+  width: 22vw;
   padding: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  background: rgba(47, 46, 49, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba(95, 94, 97, 0.3);
   backdrop-filter: blur(3.4px);
   -webkit-backdrop-filter: blur(3.4px);
   color: #ffffff;
@@ -175,90 +229,113 @@ backdrop-filter: blur(3px);
 
 /* Стилі для контенту акордеону */
 .accordion-content {
-  max-height: 0; /* Початкова висота - 0 */
-  overflow: hidden; /* Приховати контент */
-  width: 18vw; /* Має збігатися з шириною кнопки */
+  max-height: 0;
+  /* Початкова висота - 0 */
+  overflow: hidden;
+  /* Приховати контент */
+  width: 18vw;
+  /* Має збігатися з шириною кнопки */
   background: rgba(47, 46, 49, 0.5);
   color: #ffffff;
-  border-radius: 0 0 10px 10px; /* Плавне округлення нижніх країв */
-  margin-top: -10px; /* Зменшений інтервал для поєднання з кнопкою */
-  transition: max-height 0.5s ease; /* Анімація розгортання */
+  border-radius: 0 0 10px 10px;
+  /* Плавне округлення нижніх країв */
+  margin-top: -10px;
+  /* Зменшений інтервал для поєднання з кнопкою */
+  transition: max-height 0.5s ease;
+  /* Анімація розгортання */
 }
 
 /* Стилі для абзаців з посиланнями */
 .accordion-content p {
-  margin: 10px 0; /* Відступи між елементами */
-  font-family: Arial, sans-serif; /* Шрифт */
-  font-size: 16px; /* Розмір шрифту */
+  margin: 10px 0;
+  /* Відступи між елементами */
+  font-family: Arial, sans-serif;
+  /* Шрифт */
+  font-size: 16px;
+  /* Розмір шрифту */
 }
 
 /* Стилі для посилань (кнопок) */
 .accordion-content a {
   display: inline-block;
-  padding: 10px 20px; /* Відступи всередині кнопки */
-  font-size: 16px; /* Розмір шрифту */
-  color: white; /* Колір тексту */
-  background-color: rgb(52 80 73 / 34%); /* Основний колір кнопки */
-  border-radius: 5px; /* Закруглені кути */
-  text-decoration: none; /* Видаляємо підкреслення */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Ефекти при наведенні */
+  padding: 10px 20px;
+  /* Відступи всередині кнопки */
+  font-size: 16px;
+  /* Розмір шрифту */
+  color: white;
+  /* Колір тексту */
+  background-color: rgb(52 80 73 / 34%);
+  /* Основний колір кнопки */
+  border-radius: 5px;
+  /* Закруглені кути */
+  text-decoration: none;
+  /* Видаляємо підкреслення */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  /* Ефекти при наведенні */
 }
 
 /* Ефект при наведенні */
 .accordion-content a:hover {
-  background-color: rgba(52, 80, 73, 0.7); /* Темніший колір кнопки */
-  transform: translateY(-2px); /* Легке піднімання кнопки */
+  background-color: rgba(52, 80, 73, 0.7);
+  /* Темніший колір кнопки */
+  transform: translateY(-2px);
+  /* Легке піднімання кнопки */
 }
 
 /* Ефект при натисканні */
 .accordion-content a:active {
-  transform: translateY(0); /* Випрямляємо кнопку при натисканні */
+  transform: translateY(0);
+  /* Випрямляємо кнопку при натисканні */
 }
 
 /* Активний стан для контенту */
 .accordion-content.open {
-  max-height: 300px; /* Максимальна висота для розгортання */
+  max-height: 300px;
+  /* Максимальна висота для розгортання */
 }
 
 
 /* Стилі для кнопки close */
 .close-button {
-  position: absolute; /* Абсолютне позиціонування */
-  border: 2px solid rgba(255, 255, 255, 0.5); 
-  background: rgba(95, 94, 97, 0.8);
-backdrop-filter: blur(3.4px);
--webkit-backdrop-filter: blur(3.4px);
-  top: 10px; /* Відстань від верху */
-  right: 60px; /* Відстань від правого краю */
-  padding: 12px; /* Відступи внутрішнього простору кнопки */
-  border-radius: 10px; /* Округлі кути для кнопки */
-  cursor: pointer; /* Зміна вигляду курсору при наведенні */
+  position: absolute;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba(95, 94, 97, 0.3);
+  top: 10px;
+  left: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .close-button:hover {
-  background-color: rgba(172, 74, 74, 0.3); /* Світліший фон при наведенні */
-  border: 4px solid rgba(207, 140, 140, 0.5); 
-  padding: 10px; /* Відступи внутрішнього простору кнопки */
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(95, 94, 97, 0.6);
+  /* Світліший фон при наведенні */
+  padding: 10px;
+  /* Відступи внутрішнього простору кнопки */
 }
 
 .close-button:active {
-  transform: scale(0.95); /* Ефект натискання */
+  transform: scale(0.95);
+  /* Ефект натискання */
 }
 
 /* Обєкт внизу list-container (плиточки боліт) */
 .objectbox {
-  width: calc(18% - 30px); /* Розрахунок ширини картки з відступами */
+  width: calc(18% - 30px);
+  /* Розрахунок ширини картки з відступами */
   text-align: center;
-/* From https://css.glass */
-background: rgba(47, 46, 49, 0.5);
-border-radius: 16px;
-backdrop-filter: blur(3.4px);
--webkit-backdrop-filter: blur(3.4px);
-transition-duration: 1s;
+  /* From https://css.glass */
+  background: rgba(47, 46, 49, 0.5);
+  border-radius: 16px;
+  backdrop-filter: blur(3.4px);
+  -webkit-backdrop-filter: blur(3.4px);
+  transition-duration: 1s;
 }
 
 .objectbox:hover {
-  width: calc(25% - 30px); /* Розрахунок ширини картки з відступами */
+  width: calc(25% - 30px);
+  /* Розрахунок ширини картки з відступами */
   text-align: center;
   cursor: pointer;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -296,4 +373,3 @@ transition-duration: 1s;
   padding-bottom: 2px;
   --bg-h: 2px;
 }
-

@@ -43,28 +43,32 @@
             <div id="cardContainer" class="card-container">
                 <div class="card-info">
                     <h1 class="card-title" id="cardTitle"></h1>
-                    <img id="cardImage" src="" alt="Опис зображення" class="card-photo">
+                    <div class="card-photo-container">
+                        <img id="cardImage" src="" alt="" class="card-photo">
+                        <div class="photo-credit">© Nesuk Vadym, CC-BY-SA.4.0</div>
+                    </div>
                     <div id="card-description" class="card-description"></div>
                 </div>
                 <!-- Кнопка закриття картки -->
                 <button onclick="closeCard()" class="close-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24"
-                        height="24" viewBox="0 0 22 22" stroke-width="3" stroke="white" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 22 22" fill="none"
+                        stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M18 6l-12 12" />
-                        <path d="M6 6l12 12" />
+                        <path d="M5 12l14 0" />
+                        <path d="M5 12l6 6" />
+                        <path d="M5 12l6 -6" />
                     </svg>
                 </button>
                 <div class="button-container">
-                    <button class="info-button">Що можна відвідати</button>
-                    <div class="accordion-content"> </div>
-                    <button class="info-button">Корисні посилання</button>
-                    <div class="accordion-content">
-                    </div>
                     <button class="info-button">Режим охорони</button>
                     <div class="accordion-content">
                     </div>
+                    <button class="info-button">Корисні посилання</button>
+                    <div class="accordion-content">
+                    </div>
+                    <button class="info-button">Як дібратися</button>
+                    <div class="accordion-content"> </div>
                 </div>
 
 

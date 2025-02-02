@@ -134,8 +134,9 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 document.getElementById("cardImage").src = feature.properties.image; // Додайте правильне поле з URL зображення
                 document.getElementById("card-description").innerText = feature.properties.description.replace(/<\/?br>/g, '\n'); // Опис об'єкта
 
-                const settlInfoContent = feature.properties.nearest_settl;
+                const conservation_regimeInfoContent = feature.properties.conservation_regime;
                 const linksInfoContent = feature.properties.links;
+                const routeInfoContent = feature.properties.route_info;
                 // Створюємо пусту змінну для зберігання HTML-контенту
                 let content = '';
 
@@ -149,11 +150,14 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                     `;
                 });
 
-                // Виводимо інформацію в перше поле accordion-content
-                document.querySelectorAll('.accordion-content')[0].innerHTML = settlInfoContent;
+                // Виводимо інформацію в перший розділ акордеонів (Режим охорони)
+                document.querySelectorAll('.accordion-content')[0].innerHTML = conservation_regimeInfoContent;
 
-                // Виводимо інформацію в другий розділ "Посилання" акордеону
+                // Виводимо інформацію в другий розділ акордеонів (Корисні посилання)
                 document.querySelectorAll('.accordion-content')[1].innerHTML = content;
+
+                // Виводимо інформацію в третій розділ акордеонів (Як дібратися)
+                document.querySelectorAll('.accordion-content')[1].innerHTML = routeInfoContent;
             });
 
             // Додаємо елемент до списку
@@ -192,7 +196,7 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
     
                     // Create a new layer and style it using `fill-pattern`.
                     map.addLayer({
-                        'id': 'pattern-layer',
+                        'id': 'polygons-fill',
                         'type': 'fill',
                         'source': 'polygons',
                         'paint': {
@@ -201,16 +205,7 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                     });
                 }
             );
-            // Стилізація шарів полігонів та точок - OK
-            // map.addLayer({
-            //     id: "polygons-fill",
-            //     type: "fill",
-            //     source: "polygons",
-            //     layout: {},
-            //     paint: {
-            //         "fill-color": "#DE4F12",
-            //     },
-            // });
+            
     
             map.addLayer({
                 id: "centroids",
@@ -226,7 +221,7 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 type: "line",
                 source: "polygons",
                 paint: {
-                    "line-color": "white",
+                    "line-color": "#DE4F12",
                     "line-width": 2,
                 },
                 'filter': ['in', 'name', '']
