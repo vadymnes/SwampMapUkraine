@@ -124,7 +124,7 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 const bbox = turf.bbox(feature);
                 map.setFilter('polygons-border', ['in', 'name', feature.properties.name]);
                 map.fitBounds(bbox, {
-                    maxZoom: 11,
+                    maxZoom: 10,
                     padding: { top: 150, bottom: 150, left: 400, right: 50 },
                     duration: 4000,
                 });
@@ -187,7 +187,7 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 data: centroidsGeoJSON,
             });
             map.loadImage(
-                'https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/refs/heads/main/assets/bog_pattern/bog_pattern_v4.png',
+                'https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/refs/heads/main/assets/bog_pattern/bog_pattern_full_75x75.png',
                 (err, image) => {
                     // Throw an error if something goes wrong.
                     if (err) throw err;
@@ -223,7 +223,8 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 source: "polygons",
                 paint: {
                     "line-color": "#DE4F12",
-                    "line-width": 2,
+                    "line-width": 1.5,
+                    "line-opacity": 0.3
                 },
                 'filter': ['in', 'name', '']
             });
@@ -280,7 +281,7 @@ fetch("https://raw.githubusercontent.com/vadymnes/SwampMapUkraine/main/swamp_pol
                 const clickedPolygon = e.features[0];
                 const bbox = turf.bbox(clickedPolygon);
                 map.fitBounds(bbox, {
-                    maxZoom: 11,
+                    maxZoom: 10,
                     padding: { top: 150, bottom: 150, left: 400, right: 50 },
                     duration: 4000,
                 });
